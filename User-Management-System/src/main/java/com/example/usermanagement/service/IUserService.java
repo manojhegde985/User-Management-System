@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.usermanagement.UserManagementSystemApplication;
+import com.example.usermanagement.dto.UserDto;
 import com.example.usermanagement.entity.User;
 
 public interface IUserService 
@@ -18,14 +19,9 @@ public interface IUserService
 		return "ServiceLog";
 		}
 
-	public User saveUser(User user);
-	public List<User> getAllUsers();
-	//public Optional<User> getUserById(Integer uid);
-	public User deleteUser(Integer uid);
-	public User updateUser(User user);
-	public List<User> getAllUsersByCity(String city);
-	//public Optional<User> getUserByEmail(String email);
-	public List<User> getAllUserByEmail(String email);
-	public User getUserById(Integer uid);
+	public List<User> getAll();
+	
+	public List<User> getUser();
+	
 	
 }

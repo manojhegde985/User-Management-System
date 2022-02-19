@@ -3,19 +3,21 @@ package com.example.usermanagement.feignclient;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.example.usermanagement.dto.UserDto;
+
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 
 
 
 
-@FeignClient(value="feign",url="http://localhost:8080/customer")
+@FeignClient(name="feign",url="http://localhost:8083/customer/")
 public interface FeignClient1 {
 
-
-
 @GetMapping("/getAll")
-String getAllCustomers();
+public List<UserDto> getUser();
 
-@GetMapping("/{cid}")
-String getCustomer();
+
 }

@@ -1,86 +1,48 @@
 package com.example.usermanagement.service;
 
-
-
 import java.util.List;
 
+import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.usermanagement.UserManagementSystemApplication;
-import com.example.usermanagement.BO.UserBO;
+import com.example.usermanagement.bo.UserBO;
+import com.example.usermanagement.dto.UserDto;
 import com.example.usermanagement.entity.User;
+import com.example.usermanagement.exception.BusinessException;
+import com.example.usermanagement.exception.NoRecordFoundException;
 import com.example.usermanagement.mapstruct.MapstructMapper;
-import com.example.usermanagement.repository.UserRepo;
 
 @Service
 public class UserService implements IUserService {
 
 	@Autowired
-	private UserBO userRepo;
-	private MapstructMapper mapstruct;
-	
-	private static final Logger logger = LoggerFactory.getLogger(UserManagementSystemApplication.class);
-	public String ServiceLog() {
-	logger.info("this is a user management entity file ");
-      logger.warn("this is a warn message");
-      logger.error("this is an error message");
-	return "ServiceLog";
-	}
-	
+	private UserBO bo;
 	@Autowired
-	public UserService(
-	MapstructMapper mapstruct,
-	 UserBO userRepo
-	)
-	{
-	this.mapstruct = mapstruct;
-	this.userRepo= userRepo;
-	}
+	private MapstructMapper mapstruct;
 
+	private static final Logger logger = LoggerFactory.getLogger(UserManagementSystemApplication.class);
 
-	
-	@Override
-	public User saveUser(User user) {
-			return userRepo.saveUser(mapstruct.userToUserGetdto(user));
-	}
+	public String ServiceLog() {
+		logger.info("this is a user management entity file ");
 
-	@Override
-	public List<User> getAllUsers() {
-		List<User> users = userRepo.getAllUsers();
-		System.out.println("Getting data from DB : +users");
-		return users;
+		return "ServiceLog";
 	}
-	
 
 	
 
 	@Override
-	public User deleteUser(Integer uid) {
-		userRepo.deleteUser(uid);
-          return null;
-	}
-
-
-	@Override
-	public User updateUser(User user) {
-		return userRepo.saveUser(user);
+	public List<User> getAll() {
+		logger.info("fetched data in service by REST TEMPLATE");
+		return mapstruct.userDtoToUserList(bo.getAll());
 	}
 
 	@Override
-	public List<User> getAllUsersByCity(String city) {
-		return userRepo.getAllUsersByCity(city);
+	public List<User> getUser() {
+		logger.info("fetched data in service by REST TEMPLATE");
+		return mapstruct.userDtoToUserList(bo.getUser());
 	}
-	
-	@Override
-	public List<User> getAllUserByEmail(String email) {
-		return userRepo.getAllUserByEmail(email);
-	}
-   
-	@Override
-    public User getUserById(Integer uid) {
-		return userRepo.getUserById(uid);
-}
 }

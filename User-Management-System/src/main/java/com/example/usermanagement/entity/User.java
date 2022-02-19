@@ -14,30 +14,29 @@ import javax.validation.constraints.Size;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import com.example.usermanagement.UserManagementSystemApplication;
 
-@Entity
+
+
+
 @Table(name="user_tab")
+
 public class User 
 {
     @Id
     @GeneratedValue
-    private Integer uid;
-   
+    private Integer cid;
+    
     @Column
     @NotEmpty(message = "User Name is Required")
-    private String username;
-    
-    @Column
-    @NotEmpty(message = "Password is Required")
-    @Size(min=4,max=15)
-    private String password;
-    
-    @Column
-	@NotEmpty(message = "City is Required")
-    private String city;
+    private String cname;
    
+   
+   
+    @Column
+    @NotEmpty(message = "City is Required")
+    private String city;
+  
     @Column
     @NotEmpty(message = "Email is Required")
     private String email;
@@ -54,44 +53,51 @@ public User()
 {
 	
 }
-public User( Integer uid,String username, String password, String city, String email)
-{
-	this.uid =uid;
-	this.username = username;
-	this.password = password;
+
+public User(Integer cid, @NotEmpty(message = "User Name is Required") String cname,
+		@NotEmpty(message = "City is Required") String city, @NotEmpty(message = "Email is Required") String email) {
+	super();
+	this.cid = cid;
+	this.cname = cname;
 	this.city = city;
 	this.email = email;
 }
 
-public Integer getUid() {
-	return uid;
+public Integer getCid() {
+	return cid;
 }
-public void setUid(Integer uid) {
-	this.uid = uid;
+
+public void setCid(Integer cid) {
+	this.cid = cid;
 }
-public String getUsername() {
-	return username;
+
+public String getCname() {
+	return cname;
 }
-public void setUsername(String username) {
-	this.username = username;
+
+public void setCname(String cname) {
+	this.cname = cname;
 }
-public String getPassword() {
-	return password;
-}
-public void setPassword(String password) {
-	this.password = password;
-}
+
 public String getCity() {
 	return city;
 }
+
 public void setCity(String city) {
 	this.city = city;
 }
+
 public String getEmail() {
 	return email;
 }
+
 public void setEmail(String email) {
 	this.email = email;
 }
+
+public static Logger getLogger() {
+	return logger;
+}
+
 
 }
